@@ -6,7 +6,7 @@
 /*   By: rbell <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 13:15:28 by rbell             #+#    #+#             */
-/*   Updated: 2021/10/22 12:01:00 by rbell            ###   ########.fr       */
+/*   Updated: 2021/10/22 17:33:33 by rbell            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ static int	check_max(const char *s, int sign)
 	{
 		if (s[i] > s_max[i])
 			return ((sign + 1) / (-2));
+		if (s[i] < s_max[i])
+			return (1);
 		i++;
 	}
 	return (1);
