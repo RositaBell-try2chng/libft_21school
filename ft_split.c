@@ -36,7 +36,7 @@ static unsigned int	count_words(char const *s, char c)
 	return (cnt);
 }
 
-static char	*str_mod_dup(const char *s, char c, char **split, size_t j)
+static char	*str_mod_dup(const char *s, char c, char **splt, size_t j)
 {
 	size_t	i;
 	char	*new;
@@ -47,8 +47,8 @@ static char	*str_mod_dup(const char *s, char c, char **split, size_t j)
 	new = (char *)malloc(sizeof(char) * (i + 1));
 	if (NULL == new)
 	{
-		while (--j >= 0)
-			free(split[j]);
+		while (j--)
+			free(splt[j]);
 		return (NULL);
 	}
 	i = 0;
@@ -61,7 +61,7 @@ static char	*str_mod_dup(const char *s, char c, char **split, size_t j)
 	return (new);
 }
 
-static void	real_split(char const *s, char **split, char c, size_t i)
+static void	real_split(char const *s, char **splt, char c, size_t i)
 {
 	int		flg;
 	size_t	j;
@@ -74,11 +74,11 @@ static void	real_split(char const *s, char **split, char c, size_t i)
 		{
 			if (flg == 1)
 			{
-				split[i] = str_mod_dup(&s[j], c, split, i);
-				if (NULL == split[i])
+                splt[i] = str_mod_dup(&s[j], c, splt, i);
+				if (NULL == splt[i])
 				{
-					free(split);
-					split = NULL;
+					free(splt);
+                    splt = NULL;
 				}
 				i++;
 			}
@@ -92,13 +92,13 @@ static void	real_split(char const *s, char **split, char c, size_t i)
 char	**ft_split(char const *s, char c)
 {
 	unsigned int	cnt;
-	char			**split;
+	char			**splt;
 
 	cnt = count_words(s, c);
-	split = (char **)malloc(sizeof(char *) * (cnt + 1));
-	if (NULL == split)
+    splt = (char **)malloc(sizeof(char *) * (cnt + 1));
+	if (NULL == splt)
 		return (NULL);
-	split[cnt] = NULL;
-	real_split(s, split, c, 0);
-	return (split);
+    splt[cnt] = NULL;
+	real_split(s, splt, c, 0);
+	return (splt);
 }
