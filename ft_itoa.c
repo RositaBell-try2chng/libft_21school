@@ -16,7 +16,7 @@ static size_t	find_cnt(int n)
 {
 	size_t	i;
 
-	i = 0;
+	i = (n < 0);
 	while (n != 0)
 	{
 		n /= 10;
@@ -34,38 +34,25 @@ static void	ft_put_nbr_mod(char	*str, size_t i, long int n)
 	str[i] = (n % 10 + '0');
 }
 
-static char	*give_me_memory(int cnt, int n)
-{
-	if (n <= 0)
-		return ((char *)malloc(sizeof(char) * (cnt + 2)));
-	else
-		return ((char *)malloc(sizeof(char) * (cnt + 1)));
-}
-
 char	*ft_itoa(int n)
 {
 	char		*str;
 	int			cnt;
 
 	cnt = find_cnt(n);
-	str = give_me_memory(cnt, n);
+	str = malloc(sizeof(char) * (cnt + 1));
 	if (NULL == str)
 		return (NULL);
-	if (n < 0)
-	{
-		str[0] = '-';
-		ft_put_nbr_mod(str, cnt, n);
-		str[cnt + 1] = '\0';
-	}
-	else if (n > 0)
-	{
-		ft_put_nbr_mod(str, (cnt - 1), n);
-		str[cnt] = '\0';
-	}
-	else
+	if (n == 0)
 	{
 		str[0] = '0';
 		str[1] = '\0';
+	}
+	else
+	{
+		str[0] = '-';
+		ft_put_nbr_mod(str, (cnt - 1), n);
+		str[cnt] = '\0';
 	}
 	return (str);
 }

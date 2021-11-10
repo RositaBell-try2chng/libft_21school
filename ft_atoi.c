@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-static int	skipspace(const char *str)
+static size_t	skip_space(const char *str)
 {
 	size_t	i;
 
@@ -56,7 +56,7 @@ int	ft_atoi(const char *str)
 
 	res = 0;
 	sign = 1;
-	i = skipspace(str);
+	i = skip_space(str);
 	if (str[i] == 45)
 		sign = -1;
 	if (str[i] == 45 || str[i] == 43)
