@@ -61,7 +61,7 @@ static char	*str_mod_dup(const char *s, char c, char **splt, size_t j)
 	return (new);
 }
 
-static void	real_split(char const *s, char **splt, char c, size_t i)
+static void	real_split(char const *s, char ***splt, char c, size_t i)
 {
 	int		flg;
 	size_t	j;
@@ -74,11 +74,11 @@ static void	real_split(char const *s, char **splt, char c, size_t i)
 		{
 			if (flg == 1)
 			{
-                splt[i] = str_mod_dup(&s[j], c, splt, i);
+				(*(splt))[i] = str_mod_dup(&s[j], c, *splt, i);
 				if (NULL == splt[i])
 				{
-					free(splt);
-                    splt = NULL;
+					free(*splt);
+                    *splt = NULL;
 				}
 				i++;
 			}
@@ -99,6 +99,6 @@ char	**ft_split(char const *s, char c)
 	if (NULL == splt)
 		return (NULL);
     splt[cnt] = NULL;
-	real_split(s, splt, c, 0);
+	real_split(s, &splt, c, 0);
 	return (splt);
 }
